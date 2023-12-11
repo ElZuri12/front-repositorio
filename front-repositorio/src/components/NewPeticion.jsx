@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { createPeticion } from "../api/peticiones.api";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NewPeticion = ({ isOpenModalS, closeModalS, dataTesis, userData }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [motivoSolicitar, setMotivoSolicitar] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState(userData ? userData.nombre_usuario : '');
 
@@ -20,10 +20,12 @@ const NewPeticion = ({ isOpenModalS, closeModalS, dataTesis, userData }) => {
       };
 
       const response = await createPeticion(newPeticion);
+      
+      navigate(`/PreviewTesis/${userData.id}/${dataTesis.id}`);
 
       console.log('Petition created successfully:', response.data);
 
-      history.push(`/PreviewTesis/${userData.id}/${dataTesis.id}`);
+      
 
   // Cerrar el modal
       closeModalS();

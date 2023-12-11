@@ -2,9 +2,10 @@ import { useState } from "react";
 import toast from "react-hot-toast"; // Esta importacion nos permite crear alertas
 import { addTesisWithFile } from "../api/tesis.api";
 import { createDetalle } from "../api/detalleTesis.api";
-
+import { useNavigate } from "react-router-dom";
 
 const NewTesis = ({ userData }) => {
+  const navigate = useNavigate();
   const [fecha, SetFecha] = useState("");
   const [tituloTesis, SetTituloTesis] = useState("");
   const [archivoTesis, SetArchivoTesis] = useState("");
@@ -64,6 +65,8 @@ const NewTesis = ({ userData }) => {
           });
         
           console.log('Detalle tesis agregado con éxito', detalleRespost.data);
+          navigate(`/Perfil/${userData.id}`);
+
         } else {
           console.error('El idTesis es nulo o indefinido.');
           // Puedes manejar este caso, mostrar un mensaje de error, etc.
