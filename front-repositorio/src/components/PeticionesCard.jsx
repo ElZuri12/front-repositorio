@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { updatePeticion } from "../api/peticiones.api"
 import DetalleModal from "./DetalleModal";
+import { useNavigate } from "react-router-dom";
 
-
-export const PeticionesCard = ({ data }) => {
+export const PeticionesCard = ({ data, idUser }) => {
 
   const [ openModalSolicitar, setOpenModalSolicitar ] = useState(false)
+  const navigate = useNavigate();
 
   const handleAceptar = () => {
     const newData = { ...data, estado: 'aprobado' };
@@ -13,7 +14,7 @@ export const PeticionesCard = ({ data }) => {
       .then((response) => {
         console.log("Petición aceptada:", response.data);
         // Agrega la lógica adicional que necesites
-        window.location.reload();
+        navigate(`/HistorialSolicitudes/${idUser}`)
       })
       .catch((error) => {
         console.error("Error al aceptar la petición:", error);
@@ -27,7 +28,7 @@ export const PeticionesCard = ({ data }) => {
       .then((response) => {
         console.log("Petición rechazada:", response.data);
        
-        window.location.reload();
+        navigate(`/HistorialSolicitudes/${idUser}`)
       })
       .catch((error) => {
         console.error("Error al rechazar la petición:", error);

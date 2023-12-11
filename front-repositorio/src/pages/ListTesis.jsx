@@ -3,8 +3,7 @@ import { getAllPeticiones } from "../api/peticiones.api";
 import { PeticionesCard } from "../components/PeticionesCard";
 
 
-
-export const ListTesis = () => {
+export const ListTesis = ({userData}) => {
   const [peticiones, setPeticiones] = useState(null);
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export const ListTesis = () => {
 
             {peticionesEnEspera && peticionesEnEspera.length > 0 ? (
               peticionesEnEspera.map((resultado, index) => (
-                <PeticionesCard data={resultado} key={index} />
+                <PeticionesCard data={resultado} key={index} idUser={userData.id} />
               ))
             )  : (
               <tr>
