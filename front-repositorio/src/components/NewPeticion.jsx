@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { createPeticion } from "../api/peticiones.api";
+import { useHistory } from "react-router-dom";
 
 const NewPeticion = ({ isOpenModalS, closeModalS, dataTesis, userData }) => {
+  const history = useHistory();
   const [motivoSolicitar, setMotivoSolicitar] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState(userData ? userData.nombre_usuario : '');
 
@@ -20,6 +22,11 @@ const NewPeticion = ({ isOpenModalS, closeModalS, dataTesis, userData }) => {
       const response = await createPeticion(newPeticion);
 
       console.log('Petition created successfully:', response.data);
+
+      history.push(`/PreviewTesis/${userData.id}/${dataTesis.id}`);
+
+  // Cerrar el modal
+      closeModalS();
 
     } catch (error) {
       console.error('Error creating petition:', error);
