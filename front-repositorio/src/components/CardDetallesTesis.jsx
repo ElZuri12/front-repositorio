@@ -2,17 +2,21 @@ import { Link } from "react-router-dom";
 import { updateDetalle } from "../api/detalleTesis.api";
 
 
-
+import { useNavigate } from "react-router-dom";
 
 
 export const CardDetallesTesis = ({data, id_user}) => {
+
+    const navigate = useNavigate();
+
+
     const handleAceptar = () => {
         const newData = { ...data, estado: 'aprobado' };
         updateDetalle(data.id, newData)
           .then((response) => {
             console.log("Detalle aceptada:", response.data);
             // Agrega la lógica adicional que necesites
-            window.location.reload();
+            navigate(`/AdministrarTesis/${id_user}`)
           })
           .catch((error) => {
             console.error("Error al aceptar la petición:", error);
@@ -25,7 +29,7 @@ export const CardDetallesTesis = ({data, id_user}) => {
           .then((response) => {
             console.log("Petición rechazada:", response.data);
            
-            window.location.reload();
+            navigate(`/AdministrarTesis/${id_user}`)
           })
           .catch((error) => {
             console.error("Error al rechazar la petición:", error);
